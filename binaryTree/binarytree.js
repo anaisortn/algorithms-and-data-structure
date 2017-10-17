@@ -45,13 +45,9 @@ tree.createTree = function (data) {
     var parent = document.getElementById(data.parent.data).parentNode
     var element = parent.getElementsByClassName('lv' + data.level)
     item.setAttribute('class', 'item')
-    console.log(element)
-    // console.log(parent, 'exists', element)
     if (element.length > 0) {
       element[0].appendChild(item)
-      console.log('exists', element, data.level)
     } else {
-      console.log('Oopsie')
       parent.appendChild(level)
     }
   }
@@ -59,25 +55,16 @@ tree.createTree = function (data) {
 
 tree.removeElement = function (data, children) {
   var temp = data
-
   var element = document.getElementById(temp.data).parentNode
   var parent = element.parentNode
-  console.log(element, parent)
-
   if (children != null) {
-    // console.log(children, 'PUPPY')  
     if (children.firstChild && children.secondChild) {
       var append1 = children.firstChild
       var append2 = children.secondChild
-      // console.log(children, 'PUPPY')
-      console.log(temp)
       var child1 = document.getElementById(append1.data).parentNode
       var child2 = document.getElementById(append2.data).parentNode.parentNode
-      console.log(child1, 'child1', child2, 'child2')
       parent.removeChild(element)
-
-      parent.appendChild(child1)
-      child1.appendChild(child2)
+      parent.appendChild(child1).appendChild(child2)
     } else if (children.firstChild || children.secondChild) {
       if (children.firstChild) {
         var append = children.firstChild
@@ -94,18 +81,6 @@ tree.removeElement = function (data, children) {
   } else {
     parent.removeChild(element)
   }
-
-  // var button = document.getElementById(data.data)
-  // if (data.parent) {
-  //   var parent = document.getElementById(data.parent.data)
-  //   console.log(button)
-  //   console.log(parent)
-  //   parent.removeChild(button)
-  // }
-  // else {
-  //   parent = document.getElementById('nodes')
-  //   parent.removeChild(button)
-  // }
 }
 
 tree.add = function () {
@@ -117,7 +92,6 @@ tree.add = function () {
     if (!currentNode) {
       head = node
       node.level = levelCount
-      console.log(head)
     } else
       while (currentNode) {
         levelCount++
@@ -126,25 +100,21 @@ tree.add = function () {
             node.level = levelCount
             currentNode.leftChild = node
             node.parent = currentNode
-            console.log(currentNode)
             break
           } else {
             currentNode = currentNode.leftChild
-            console.log('keep searching -')
           }
         } else if (node.data > currentNode.data) {
           if (!currentNode.rightChild) {
             node.level = levelCount
             currentNode.rightChild = node
             node.parent = currentNode
-            console.log(currentNode)
             break
           } else {
             currentNode = currentNode.rightChild
-            console.log('keep searching +')
           }
         } else if (node.data == currentNode.data) {
-          console.log('try again')
+          window.alert('The node already exists')
           break
         }
       }
@@ -158,34 +128,25 @@ tree.contains = function () {
   var data = tree.getData()
   var count = 0
   if (data != null) {
-    console.log(head)
     currentNode = head
-    console.log('working1')
     while (currentNode) {
       count++
-      console.log('working2')
       if (data > currentNode.data) {
-        console.log('working3')
         if (!currentNode.rightChild) {
-          console.log('Sorry, that node doesn\'t exist ')
-          console.log('working4')
+          window.alert('Sorry, that node doesn\'t exist ')
           break
         } else {
           currentNode = currentNode.rightChild
         }
       } else if (data < currentNode.data) {
-        console.log('working5')
         if (!currentNode.leftChild) {
-          console.log('Sorry, that node doesn\'t exist ')
-          console.log('working6')
+          window.alert('Sorry, that node doesn\'t exist ')
           break
         } else {
           currentNode = currentNode.leftChild
         }
       } else if (data == currentNode.data) {
-        console.log('The node already exists', currentNode)
-        console.log('working7')
-        console.log(count)
+        window.alert('The node already exists', currentNode)
         return currentNode
         break
       }
@@ -205,10 +166,8 @@ tree.remove = function () {
 
     // Parent
     if (data.parent) {
-
       // No child
       if (!data.leftChild && !data.rightChild) {
-        console.log('no child')
         if (data.parent.leftChild == data) {
           data.parent.leftChild = null
         } else {
@@ -217,19 +176,14 @@ tree.remove = function () {
         tree.removeElement(send)
         data = null
       }
-
       // Children
       else if (data.leftChild && data.rightChild) {
-        console.log('children')
         if (data.parent.leftChild == data) {
           data.parent.leftChild = null
-          console.log('left')
         } else {
           data.parent.rightChild = null
-          console.log('right')
         }
         var temp = data.leftChild
-        console.log(temp, 'PUPPY PUPPY')
         data.leftChild = null
         var currentNode = head
         while (currentNode) {
@@ -238,15 +192,11 @@ tree.remove = function () {
               currentNode.rightChild = temp
               currentNode.rightChild.parent = currentNode
               if (data.leftChild == null) {
-                console.log('done +')
                 if (data.rightChild == null) {
-                  // children.secondChild = currentNode
                   tree.removeElement(send, children)
                   data = null
-                  console.log('null')
                   break
                 } else {
-                  // children.firstChild = temp.rightChild
                   temp = data.rightChild
                   data.rightChild = null
                   currentNode = head
@@ -262,15 +212,11 @@ tree.remove = function () {
               currentNode.leftChild = temp
               currentNode.leftChild.parent = currentNode
               if (data.leftChild == null) {
-                console.log('done -')
                 if (data.rightChild == null) {
-                  // children.secondChild = currentNode
                   tree.removeElement(send, children)
                   data = null
-                  console.log('null')
                   break
                 } else {
-                  // children.firstChild = currentNode
                   temp = data.rightChild
                   data.rightChild = null
                   currentNode = head
@@ -285,7 +231,6 @@ tree.remove = function () {
 
       // One child
       else {
-        console.log('one child')
         var temp
         var currentNode = head
         if (data.parent.leftChild == data) {
@@ -324,7 +269,6 @@ tree.remove = function () {
 
     // No parent
     else {
-
       // Children
       if (data.leftChild && data.rightChild) {
         var temp = data.leftChild
@@ -367,14 +311,12 @@ tree.remove = function () {
           }
         }
       }
-
       // No child
       else if (!data.rightChild && !data.leftChild) {
         tree.removeElement(send)
         head = null
         data = null
       }
-
       // One child
       else {
         var temp
@@ -386,28 +328,22 @@ tree.remove = function () {
         }
         while (currentNode) {
           if (temp.data > currentNode.data || temp.data === currentNode.data) {
-            console.log('1')
             if (!currentNode.rightChild) {
-              console.log('2')
               currentNode.rightChild = temp
               currentNode.rightChild.parent = currentNode
               tree.removeElement(send)
               break
             } else {
-              console.log('3')
               currentNode = currentNode.rightChild
             }
           } else if (temp.data < currentNode.data) {
-            console.log('4')
             if (!currentNode.leftChild) {
-              console.log('5')
               currentNode.leftChild = temp
               currentNode.leftChild.parent = currentNode
 
               tree.removeElement(send)
               break
             } else {
-              console.log('6')
               currentNode = currentNode.leftChild
             }
           }
