@@ -1,0 +1,170 @@
+.top  {
+  position: absolute;
+  top: 25px;
+  right: 650px;
+}
+
+/* #nodes {
+  position: absolute;
+  width: 100%;
+  top:135px;
+  height: 100%;
+} */
+
+button {
+  width: 200px;
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+input {
+  width: 600px;
+  border: 0.5px solid black;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+span:hover {
+  background: #e9453f;
+  color: #fff;
+}
+
+span:last-child:hover {
+
+  background: #e9453f;
+  color: #fff;
+}
+
+
+
+body {
+  min-width: 1100px;
+  padding: 50px;
+  font: 16px Verdana, sans-serif;
+}
+
+.root {
+  width: 100%;
+  top:150px;
+  height: 100%;
+  position: relative;
+}
+
+.level {
+  margin-left: 240px;
+  position: relative;
+}
+
+.level::before { 
+  content: "";
+  width: 50px;
+  border-top: 2px solid #eee9dc;
+  position: absolute;
+  left: -95px;
+  top: 50%;
+  margin-top: 1px;
+}
+
+.item {
+  min-height: 50px;
+  position: relative;
+}
+
+
+.item:first-child::before {
+  width: 10px;
+  height: 50%;
+  top: 50%;
+  margin-top: 2px;
+  border-top-left-radius: 10px;
+}
+
+ .item:first-child::after {
+  height: 10px;
+  border-top-left-radius: 10px;
+}
+
+.item:last-child::before {
+  width: 10px;
+  height: 50%;
+  border-bottom-left-radius: 10px;
+}
+
+.item:last-child::after {
+  height: 10px;
+  border-top: none;
+  border-bottom: 2px solid #eee9dc;
+  border-bottom-left-radius: 10px;
+  margin-top: -11px;
+}
+
+.item:only-child::before {
+  display: none;
+}
+
+.item::before {
+  content: "";
+  height: 100%;
+  border-left: 2px solid #eee9dc;
+  position: absolute;
+  left: -48px;
+}
+
+.item::after {
+  content: "";
+  width: 46px;
+  border-top: 2px solid #eee9dc;
+  position: absolute;
+  left: -46px;
+  top: 50%;
+  margin-top: 1px;
+}
+
+.title {
+  width: 120px;
+  padding: 5px 10px;
+  line-height: 20px;
+  text-align: center;
+  border: 2px solid #eee9dc;
+  border-radius: 5px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -15px;
+}
+
+.lv1::before {
+  display: none;
+}
+
+.lv1 > .item::before {
+  display: none;
+}
+
+.lv1 > .item::after {
+  display: none;
+}
+
+.item:only-child::before {
+  display: none;
+}
+
+.item:only-child::after {
+  border-bottom-left-radius: 0px;
+  height: 12px;
+}
