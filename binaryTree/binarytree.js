@@ -14,7 +14,6 @@ var tree = new BinaryTree()
 
 tree.getData = function () {
   var data = parseInt(document.getElementsByName('number')[0].value)
-  console.log(data)
   if (isNaN(data)) {
     return null
   } else {
@@ -22,12 +21,8 @@ tree.getData = function () {
   }
 }
 
-
-
-
 tree.createTree = function (data) {
   var button = document.getElementById(head.data)
-
   var level = document.createElement('div')
   var item = document.createElement('div')
   var span = document.createElement('span')
@@ -38,7 +33,6 @@ tree.createTree = function (data) {
   level.appendChild(item).appendChild(span).appendChild(txt)
 
   if (!button) {
-    console.log('No head')
     document.getElementsByClassName('root')[0].appendChild(level)
     item.setAttribute('class', 'item')
   } else {
@@ -146,7 +140,7 @@ tree.contains = function () {
           currentNode = currentNode.leftChild
         }
       } else if (data == currentNode.data) {
-        window.alert('The node already exists', currentNode)
+        // window.alert('The node already exists', currentNode)
         return currentNode
         break
       }
@@ -340,7 +334,6 @@ tree.remove = function () {
             if (!currentNode.leftChild) {
               currentNode.leftChild = temp
               currentNode.leftChild.parent = currentNode
-
               tree.removeElement(send)
               break
             } else {

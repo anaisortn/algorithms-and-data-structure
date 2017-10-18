@@ -1,41 +1,55 @@
 function Stack() {
-  // items in the Stack. length var = length of array
   this.length = 0;
-  stack = []
+  stacks = []
 }
 
-Stack.prototype.push = function (button) {
+var stack = new Stack()
+
+stack.push = function (button) {
   var previousColor = document.getElementById(button).style.backgroundColor
   var item = {
     button,
     previousColor
   }
-  stack[length] = item
+  stacks[length] = item
   length++
-  // console.log(stack, length, item)
-  Stack.prototype.changeColor(item)
+  stack.changeColor(item)
 }
 
-Stack.prototype.changeColor = function (item) {
-  // console.log('changeColor:', item)
+stack.changeColor = function (item) {
   color = getRandomColor()
   document.getElementById(item.button).style.background = color
+  stack.appendToList(item.button, color)
 }
 
-Stack.prototype.undo = function () {
+stack.undo = function () {
   if (length == 0) {
     alert('The Stack is empty')
   } else {
-    length--    
-    var item = stack[length]
+    length--
+    var item = stacks[length]
     document.getElementById(item.button).style.background = item.previousColor
-    console.log(stack)
-    stack.splice(length, 1)
-    console.log('deleted : ', item, 'length : ', length, 'stack : ', stack)
+    stacks.splice(length, 1)
+    stack.removeFromList()
   }
+}
+
+stack.removeFromList = function () {
+  var list = document.getElementById('colors')
+  list.removeChild(list.lastChild)
+}
+
+stack.appendToList = function (item, color) {
+  var list = document.getElementById('colors')
+  var span = document.createElement('p')
+  var txt = document.createTextNode(item + ' : ' + color)
+  span.style.color = color
+  list.appendChild(span).appendChild(txt)
+  list.scrollTop = list.scrollHeight
 }
 
 function getRandomColor() {
   var hex = Math.floor(Math.random() * 0xFFFFFF);
   return "#" + ("000000" + hex.toString(16)).substr(-6);
 }
+

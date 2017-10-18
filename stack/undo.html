@@ -3,18 +3,22 @@
 
 <head>
   <script type="text/javascript" src="./undo.js"></script>
+  <link rel="stylesheet" href="./undo.css">
 </head>
 
-<body>
+<body >
+  <div id="buttons">
+    <button id="button1" onclick="stack.push('button1')" style="margin:20,10,0,0">1</button>
+    <button id="button2" onclick="stack.push('button2')" style="margin:110,10,0,0">2</button>
+    <button id="button3" onclick="stack.push('button3')" style="margin:210,10,0,0">3</button>
+    <br>
+    <br>
+    <button id="undo" onclick="stack.undo()">Undo</button>
+  </div>
+  <div id="colors">
 
-  <button id="button1" onclick="Stack.prototype.push('button1')" style="background-color:red; height:179px; width:50px;margin:20,10,0,0">1</button>
-  <button id="button2" onclick="Stack.prototype.push('button2')" style="background-color:red; height:179px; width:50px;margin:110,10,0,0">2</button>
-  <button id="button3" onclick="Stack.prototype.push('button3')" style="background-color:red; height:179px; width:50px;margin:210,10,0,0">3</button>
-  
-  <button onclick="Stack()">Push</button>
-  <button onclick="Stack.prototype.undo()">Undo</button>
-  
-  
+  </div>
+
 </body>
 
 </html>
