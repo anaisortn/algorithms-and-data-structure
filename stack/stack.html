@@ -3,20 +3,18 @@
 
 <head>
   <script type="text/javascript" src="./stack.js"></script>
+  <link rel="stylesheet" href="./stack.css">
 </head>
 
-<body>
-
-  <button onclick="Stack.prototype.pop()">Pop last one</button>
-  <button onclick="Stack()">Initialize</button>
-  <button onclick="Stack.prototype.push()">Push</button>
-  <!-- <button onclick="Stack.prototype.push(5)">Push 5</button>
-  <button onclick="Stack.prototype.push(2)">Push 2</button> -->
-  <button onclick="Stack.prototype.peek()">Peek</button>
-  <button onclick="Stack.prototype.clear()">Clear</button>
-  <button onclick="Stack.prototype.enumerate()">enumerate</button>
-  <button onclick="Stack.prototype.calculator()">calculator</button>
-  
+<body onload="Stack()">
+  <div id="buttons">
+    <button onclick="initStack.push()">Push</button>      
+    <button onclick="initStack.pop()">Pop</button>
+    <button onclick="initStack.peek()">Peek</button>
+    <button onclick="initStack.clear()">Clear</button>
+    <button onclick="initStack.calculator()">Calculator</button>
+  </div>
+  <div id="stack"></div>
 </body>
 
 </html>

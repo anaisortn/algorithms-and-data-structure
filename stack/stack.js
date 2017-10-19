@@ -4,84 +4,111 @@ function Stack() {
   stack = []
 }
 
-Stack.prototype.push = function () {
+var initStack = new Stack()
+
+initStack.push = function () {
   var item = window.prompt('Please enter a number or operator')
+  if (!isNaN(item)) {
+    item = parseInt(item)
+  }
   stack[length] = item
   length++
-  console.log(stack, length)
+  var button = document.createElement('button')
+  var txt = document.createTextNode(item)
+  var parent = document.getElementById('stack')
+  button.setAttribute('class', 'stackElement')
+  button.appendChild(txt)
+  // console.log(button)
+  parent.appendChild(button)
 }
 
-Stack.prototype.pushToStack = function (item, i) {
-  stack[i] = item
-  // spot = i-2
-  stack.splice(i - 2, 2)
+initStack.pushToStack = function (item, i) {
+  var button = document.createElement('button')
+  var txt = document.createTextNode(item)
+  button.appendChild(txt)
+  button.setAttribute('class', 'stackElement')
+  var parent = document.getElementById('stack')
+  parent.insertBefore(button, parent.firstChild)
+  // console.log(stack)
+  stack.splice(i - 2, 1)
+  console.log('ITEM', item)
+  stack[0] = item
   console.log(stack)
-  // stack[0] = item
-  // length++
-  // console.log(stack, length)
+  initStack.calculator()
+
 }
 
-Stack.prototype.pop = function () {
+initStack.pop = function () {
   if (length == 0) {
     alert('The Stack is empty')
   } else {
+    var parent = document.getElementById('stack')
+    parent.removeChild(parent.lastChild)
     length--
     var deletedData = stack[length]
     delete stack[length]
     return deletedData
-    console.log('deleted : ', deletedData, 'length : ', length, 'stack : ', stack)
   }
 }
 
-Stack.prototype.peek = function () {
+initStack.peek = function () {
   tempLength = length - 1
-  console.log(stack[tempLength])
+  // console.log(stack[tempLength])
 }
 
-Stack.prototype.clear = function () {
+initStack.clear = function () {
   length = 0
   stack = []
-}
-
-Stack.prototype.enumerate = function () {
-  for (var i = length - 1; i >= 0; i--) {
-    console.log(stack[i])
+  var parent = document.getElementById('stack')
+  while (parent.lastChild) {
+    parent.removeChild(parent.lastChild)
   }
 }
 
-Stack.prototype.calculator = function () {
+// initStack.enumerate = function () {
+//   for (var i = length - 1; i >= 0; i--) {
+//     console.log(stack[i])
+//   }
+// }
+
+initStack.calculator = function () {
   // Loop through stack, enumerate and return final result
   // console.log(item)
   for (var i = 0; i < length; i++) {
+    console.log(stack[i])
+    var parent = document.getElementById('stack')
+    parent.removeChild(parent.childNodes[0])
     if (!isNaN(stack[i])) {
-      console.log(stack[i])
+      console.log('is Number', stack[i])
     } else if (isNaN(stack[i])) {
-      // Stack.prototype.push(item)
+      // initStack.push(item)
       // } else {
-      // var firstNumber = Stack.prototype.pop()
-      // var secondNumber = Stack.prototype.pop()
+      // var firstNumber = initStack.pop()
+      // var secondNumber = initStack.pop()
       var firstNumber = stack[i - 1]
       var secondNumber = stack[i - 2]
+      length = length - 3
+      console.log('is not a Number', stack[i], firstNumber, secondNumber)
 
       switch (stack[i]) {
         case '+':
-          Stack.prototype.pushToStack(+secondNumber + +firstNumber, [i])
+          initStack.pushToStack(+secondNumber + +firstNumber, [i])
           console.log(stack)
           break;
         case '-':
-          Stack.prototype.pushToStack(secondNumber - firstNumber, [i])
+          initStack.pushToStack(secondNumber - firstNumber, [i])
           console.log(stack)
           break;
         case '*':
-          Stack.prototype.pushToStack(secondNumber * firstNumber, [i])
+          initStack.pushToStack(secondNumber * firstNumber, [i])
           console.log(stack)
           break;
         case '/':
-          Stack.prototype.pushToStack(secondNumber / firstNumber, [i])
+          initStack.pushToStack(secondNumber / firstNumber, [i])
           console.log(stack)
           break;
         case '%':
-          Stack.prototype.pushToStack(firstNumber % secondNumber, [i])
+          initStack.pushToStack(firstNumber % secondNumber, [i])
           console.log(stack)
           break;
         // default:
